@@ -47,9 +47,9 @@ function CustomLabel({
 
   const sx = cx + outerRadius * cos;
   const sy = cy + outerRadius * sin;
-  const mx = cx + (outerRadius + 20) * cos;
-  const my = cy + (outerRadius + 20) * sin;
-  const ex = mx + (cos >= 0 ? 20 : -20);
+  const mx = cx + (outerRadius + 16) * cos;
+  const my = cy + (outerRadius + 16) * sin;
+  const ex = mx + (cos >= 0 ? 16 : -16);
   const ey = my;
 
   const textAnchor = cos >= 0 ? "start" : "end";
@@ -64,11 +64,11 @@ function CustomLabel({
       />
       <circle cx={ex} cy={ey} r={2} fill={config.color} />
       <text
-        x={ex + (cos >= 0 ? 6 : -6)}
+        x={ex + (cos >= 0 ? 4 : -4)}
         y={ey}
         textAnchor={textAnchor}
         dominantBaseline="central"
-        fontSize={12}
+        fontSize={11}
         fill={config.color}
         fontWeight="bold"
       >
@@ -80,15 +80,15 @@ function CustomLabel({
 
 export function PlatformDistributionChart() {
   return (
-    <ChartContainer config={chartConfig} className="mx-auto h-80">
-      <PieChart>
+    <ChartContainer config={chartConfig} className="mx-auto w-full max-w-md" style={{ height: "clamp(220px, 45vw, 320px)" }}>
+      <PieChart margin={{ top: 16, right: 72, bottom: 16, left: 72 }}>
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
         <Pie
           data={chartData}
           dataKey="value"
           nameKey="name"
-          innerRadius={70}
-          outerRadius={90}
+          innerRadius="38%"
+          outerRadius="52%"
           strokeWidth={2}
           labelLine={false}
           animationDuration={600}
