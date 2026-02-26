@@ -95,7 +95,7 @@ export function PlatformDistributionChart() {
   return (
     <ChartContainer
       config={chartConfig}
-      className="mx-auto w-full sm:max-w-md [&_.recharts-surface]:overflow-visible"
+      className="mx-auto w-full max-w-md [&_.recharts-surface]:overflow-visible"
       style={{ height: "clamp(220px, 45vw, 320px)" }}
     >
       <PieChart margin={{ top: 24, right: 90, bottom: 24, left: 90 }}>

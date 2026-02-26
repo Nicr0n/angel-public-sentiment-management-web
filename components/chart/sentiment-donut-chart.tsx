@@ -87,8 +87,8 @@ export function SentimentDonutChart() {
   return (
     <ChartContainer
       config={chartConfig}
-      className="mx-auto w-full max-w-sm  [&_.recharts-surface]:overflow-visible"
-      style={{ height: "clamp(200px, 40vw, 288px)" }}
+      className="mx-auto w-full max-w-md [&_.recharts-surface]:overflow-visible"
+      style={{ height: "clamp(220px, 45vw, 320px)" }}
     >
       <PieChart margin={{ top: 24, right: 80, bottom: 24, left: 80 }}>
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
