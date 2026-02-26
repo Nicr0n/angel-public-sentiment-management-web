@@ -36,7 +36,7 @@ function IndexedCard({
   const label = index !== undefined ? String(index).padStart(2, "0") : "";
 
   return (
-    <div className={cn("w-full flex flex-col gap-4", className)}>
+    <div className={cn("w-full flex flex-col gap-3", className)}>
       {/* 顶部装饰矩形：左红右黑，斜线分割 */}
       <div className="relative w-full h-13 overflow-hidden">
         {/* 左侧红色：clip-path 保留斜线左边部分 */}
