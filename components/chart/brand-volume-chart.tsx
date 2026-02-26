@@ -10,36 +10,45 @@ import {
 
 // ---- Mock 数据，在这里修改 ----
 const chartData = [
-  { name: "casarte",       value: 3200 },
-  { name: "xiaomi",        value: 2800 },
-  { name: "haier",         value: 2400 },
-  { name: "qinyuan",       value: 1800 },
-  { name: "midea",         value: 1600 },
-  { name: "angel",         value: 1400 },
-  { name: "other",         value: 1000 },
-  { name: "yikou",         value: 600  },
+  { name: "casarte", value: 3200 },
+  { name: "xiaomi", value: 2800 },
+  { name: "haier", value: 2400 },
+  { name: "qinyuan", value: 1800 },
+  { name: "midea", value: 1600 },
+  { name: "angel", value: 1400 },
+  { name: "other", value: 1000 },
+  { name: "yikou", value: 600 },
 ];
 // --------------------------------
 
 const chartConfig = {
-  casarte: { label: "卡萨帝",    color: "#dc2626" },
-  xiaomi:  { label: "小米净水器", color: "#ea580c" },
-  haier:   { label: "海尔净水器", color: "#f97316" },
-  qinyuan: { label: "沁园",      color: "#f59e0b" },
-  midea:   { label: "美的净水器", color: "#fbbf24" },
-  angel:   { label: "安吉尔",    color: "#fcd34d" },
-  other:   { label: "其他",      color: "#9ca3af" },
-  yikou:   { label: "怡口",      color: "#6b7280" },
+  casarte: { label: "卡萨帝", color: "#dc2626" },
+  xiaomi: { label: "小米净水器", color: "#ea580c" },
+  haier: { label: "海尔净水器", color: "#f97316" },
+  qinyuan: { label: "沁园", color: "#f59e0b" },
+  midea: { label: "美的净水器", color: "#fbbf24" },
+  angel: { label: "安吉尔", color: "#fcd34d" },
+  other: { label: "其他", color: "#9ca3af" },
+  yikou: { label: "怡口", color: "#6b7280" },
 } satisfies ChartConfig;
 
 const RADIAN = Math.PI / 180;
 const total = chartData.reduce((sum, d) => sum + d.value, 0);
 
 function CustomLabel({
-  cx, cy, midAngle, outerRadius, name, value,
+  cx,
+  cy,
+  midAngle,
+  outerRadius,
+  name,
+  value,
 }: {
-  cx: number; cy: number; midAngle: number;
-  outerRadius: number; name: string; value: number;
+  cx: number;
+  cy: number;
+  midAngle: number;
+  outerRadius: number;
+  name: string;
+  value: number;
 }) {
   const config = chartConfig[name as keyof typeof chartConfig];
   const percent = ((value / total) * 100).toFixed(1);
@@ -47,11 +56,15 @@ function CustomLabel({
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
 
+  const extend = outerRadius * 0.18;
+  const horiz = outerRadius * 0.18;
+  const fontSize = Math.max(9, outerRadius * 0.13);
+
   const sx = cx + outerRadius * cos;
   const sy = cy + outerRadius * sin;
-  const mx = cx + (outerRadius + 16) * cos;
-  const my = cy + (outerRadius + 16) * sin;
-  const ex = mx + (cos >= 0 ? 16 : -16);
+  const mx = cx + (outerRadius + extend) * cos;
+  const my = cy + (outerRadius + extend) * sin;
+  const ex = mx + (cos >= 0 ? horiz : -horiz);
   const ey = my;
 
   const textAnchor = cos >= 0 ? "start" : "end";
@@ -70,7 +83,7 @@ function CustomLabel({
         y={ey}
         textAnchor={textAnchor}
         dominantBaseline="central"
-        fontSize={11}
+        fontSize={fontSize}
         fill={config.color}
         fontWeight="bold"
       >
@@ -82,15 +95,19 @@ function CustomLabel({
 
 export function BrandVolumeChart() {
   return (
-    <ChartContainer config={chartConfig} className="mx-auto w-full max-w-md" style={{ height: "clamp(220px, 45vw, 320px)" }}>
-      <PieChart margin={{ top: 16, right: 72, bottom: 16, left: 72 }}>
+    <ChartContainer
+      config={chartConfig}
+      className="mx-auto w-full max-w-md  [&_.recharts-surface]:overflow-visible"
+      style={{ height: "clamp(220px, 45vw, 320px)" }}
+    >
+      <PieChart margin={{ top: 24, right: 90, bottom: 24, left: 90 }}>
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
         <Pie
           data={chartData}
           dataKey="value"
           nameKey="name"
-          innerRadius="38%"
-          outerRadius="52%"
+          innerRadius="55%"
+          outerRadius="80%"
           strokeWidth={2}
           labelLine={false}
           animationDuration={600}
